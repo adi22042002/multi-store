@@ -2,7 +2,7 @@
 
 import { useStoreModel } from "@/hooks/use-store-model";
 import { Modal } from "@/components/modal";
-
+import axios from "axios"
 import { useState } from "react";
 import { z } from "zod";
 Input;
@@ -34,7 +34,14 @@ export const StoreModel = () => {
     },
   });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+      try{setIsLoading(true)
+        const response=await axios.post("/api/stores",values);
+        console.log(response);
+      }catch(error){
+console.log(error);
+      }
+      finally{ setIsLoading(false)}
+    
   };
   return (
     <Modal
@@ -67,7 +74,7 @@ export const StoreModel = () => {
               </FormField>
               <div className="pt-6 space-x-2 flex items-center justify-end w-full">
                 <Button disabled={isLoading} type="button" variant="outline" size="sm" >Cancel</Button>
-                <Button disabled={isLoading} type="submit"  size="sm" >Cancel</Button>
+                <Button disabled={isLoading} type="submit"  size="sm" >Continue</Button>
               </div>
             </form>
           </Form>
