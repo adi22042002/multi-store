@@ -5,7 +5,7 @@ import { Modal } from "@/components/modal";
 import axios from "axios"
 import { useState } from "react";
 import { z } from "zod";
-Input;
+import toast from "react-hot-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -37,7 +37,9 @@ export const StoreModel = () => {
       try{setIsLoading(true)
         const response=await axios.post("/api/stores",values);
         console.log(response);
+        throw new Error("XYZ");
       }catch(error){
+        toast.error("Something went wrong");
 console.log(error);
       }
       finally{ setIsLoading(false)}
